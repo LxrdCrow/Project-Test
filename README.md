@@ -1,7 +1,6 @@
 TASK TEST TECNICO
 
-- Collegare a github
-- creare .env .venv .gitignore
+- Preparare struttura app.py
 - Cercare template grafico online bootstrap
 - Flusso applicativo richiesto
  L’applicazione dovrà prevedere:
