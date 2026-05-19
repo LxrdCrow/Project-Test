@@ -1,7 +1,6 @@
 TASK TEST TECNICO
 
-- Preparare struttura app.py
-- Cercare template grafico online bootstrap
+- Preparare struttura MVC
 - Flusso applicativo richiesto
  L’applicazione dovrà prevedere:
 1. Una pagina di login (/login)
@@ -11,25 +10,55 @@ TASK TEST TECNICO
 5. Visualizzazione di un messaggio di errore in caso di credenziali non valide
 6. Accesso alla dashboard consentito solo agli utenti autenticati
 
-- Cominciare a strutturare il progetto Liv. 1:
-
-• Pagina di login funzionante
-• Verifica delle credenziali tramite codice
-• Redirect alla dashboard in caso di login corretto
-• Messaggio di errore in caso di login non valido
-• Utilizzo delle sessioni Flask per mantenere lo stato dell’utente
-• Protezione della pagina /dashboard, accessibile solo se l’utente è autenticato
 
 
-- Pensare al database e avanzamento Liv. 2:
+- Livello 3 – Avanzato
 
-Estendere l’applicazione introducendo un database per la gestione degli utenti.
-È richiesto l’utilizzo di un database semplice, preferibilmente SQLite.
+Obiettivo 
+Migliorare la struttura del progetto e introdurre funzionalità tipiche di un’applicazione strutturata. 
+Struttura del progetto 
+Si richiede una separazione logica del codice, ad esempio: 
+project/ 
+│── app.py 
+│── controllers/ 
+│   
+│   
+│ 
+├── auth.py          
+├── main.py         
+│── models/ 
+│   
 
-• Il login deve essere verificato tramite query al database
-• Implementazione della pagina di registrazione (/register)
-• Possibilità di creare nuovi utenti
-• Gestione dei casi di errore:
+# gestione login e registrazione 
+ # gestione rotte principali (dashboard, ecc.) 
 
-    o utente non esistente
-    o password errata
+├── user_model.py    # accesso al database 
+│ 
+│── templates/ 
+│   
+│   
+│   
+│   
+│ 
+├── login.html 
+├── register.html 
+├── dashboard.html 
+├── profile.html 
+│── static/ 
+
+
+Requisiti aggiuntivi 
+• Separazione tra: 
+o models: gestione accesso ai dati 
+o controllers: gestione delle rotte e della logica applicativa 
+• Implementazione di una pagina profilo (/profile) che permetta all’utente di: 
+o visualizzare le informazioni principali 
+o modificare la propria password 
+
+• Implementazione della funzionalità di logout 
+
+
+• Utilizzo di decoratori per proteggere le route 
+
+
+NB. I casi di errore 'utente non esistente' e 'password errata' vado a restituire intenzionalmente lo stesso messaggio generico per prevenire user enumeration attacks (chiedere al Senior cosa preferisce)
