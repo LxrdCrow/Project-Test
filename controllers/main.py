@@ -26,6 +26,7 @@ from controllers.auth import login_required
 main_bp = Blueprint('main', __name__)
 
 
+# Prevents browser caching of sensitive dashboard data
 @main_bp.route('/dashboard')
 @login_required
 def dashboard():
@@ -42,6 +43,7 @@ def dashboard():
     return response
 
 
+# Ensures username is unique across users (excluding current user)
 @main_bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -52,7 +54,6 @@ def profile():
 
         action = request.form.get('action')
 
-        # CHANGE USERNAME
         if action == 'change_username':
 
             new_username = request.form['new_username'].strip()
@@ -65,7 +66,6 @@ def profile():
                 flash('New username must be different from current one')
                 return redirect(url_for('main.profile'))
 
-            # FIX: check BEFORE updating DB
             existing_user = get_user_by_username(new_username)
 
             if existing_user and existing_user['id'] != session['user_id']:
@@ -78,7 +78,7 @@ def profile():
             flash('Username updated successfully')
             return redirect(url_for('main.profile'))
 
-        # CHANGE PASSWORD
+        # Validates password update with security constraints
         if action == 'change_password':
 
             current_password = request.form['current_password']

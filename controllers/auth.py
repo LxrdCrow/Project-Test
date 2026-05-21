@@ -13,7 +13,7 @@ limiter = Limiter(
 
 auth_bp = Blueprint('auth', __name__)
 
-
+# Protects routes that require authenticated session
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -24,6 +24,7 @@ def login_required(f):
     return decorated_function
 
 
+# Rate limiting applied to prevent brute-force login attempts
 @auth_bp.route('/login', methods=['GET', 'POST'])
 @limiter.limit("10 per minute")
 def login():

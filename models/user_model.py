@@ -4,6 +4,8 @@ import sqlite3
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, '..', 'database', 'app.db')
 
+
+# Creates a new SQLite connection with row access as dictionary-like objects
 def get_db_connection():
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
@@ -28,6 +30,10 @@ def get_user_by_id(user_id):
     return user
 
 def create_user(username, hashed_password):
+    """
+    Creates a new user with unique username constraint.
+    Returns True if successful, False if username already exists.
+    """
     connection = get_db_connection()
     try:
         connection.execute(
