@@ -9,55 +9,54 @@
 
 <div class="container mt-5" style="max-width: 500px;">
 
-    <div class="card p-4 shadow-sm">
+    <div class="card p-4 shadow-sm mb-3">
+        <h3 class="mb-1">User Profile</h3>
+        <p class="text-muted mb-0">Logged in as: <strong>{{ user['username'] }}</strong></p>
+    </div>
 
-        <h3 class="mb-3">User Profile</h3>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info py-2">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-        <p class="mb-4">
-            Logged in as: <strong>{{ user['username'] }}</strong>
-        </p>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-info">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
+    <div class="card p-4 shadow-sm mb-3">
+        <h5 class="mb-3">Change Username</h5>
         <form method="POST">
-
+            <input type="hidden" name="action" value="change_username">
             <div class="mb-3">
-                <label>Current Password</label>
-                <input type="password" name="current_password" class="form-control" required>
+                <label class="form-label">New Username</label>
+                <input type="text" name="new_username" class="form-control" placeholder="" required>
             </div>
-
-            <div class="mb-3">
-                <label>New Password</label>
-                <input type="password" name="new_password" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label>Confirm New Password</label>
-                <input type="password" name="confirm_password" class="form-control" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">
-                Update Password
-            </button>
-
+            <button type="submit" class="btn btn-primary w-100">Update Username</button>
         </form>
+    </div>
 
-        <hr>
+    <div class="card p-4 shadow-sm mb-3">
+        <h5 class="mb-3">Change Password</h5>
+        <form method="POST">
+            <input type="hidden" name="action" value="change_password">
+            <div class="mb-3">
+                <label class="form-label">Current Password</label>
+                <input type="password" name="current_password" class="form-control" placeholder="" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">New Password</label>
+                <input type="password" name="new_password" class="form-control" placeholder="" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" name="confirm_password" class="form-control" placeholder="" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update Password</button>
+        </form>
+    </div>
 
-        <a href="{{ url_for('auth.dashboard') }}" class="btn btn-secondary w-100">
-            Back to Dashboard
-        </a>
-
-        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger w-100 mt-2">
-            Logout
-        </a>
-
+    <div class="card p-4 shadow-sm">
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary w-100 mb-2">Back to Dashboard</a>
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger w-100">Logout</a>
     </div>
 
 </div>

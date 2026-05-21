@@ -21,7 +21,7 @@ def get_user_by_username(username):
 def get_user_by_id(user_id):
     connection = get_db_connection()
     user = connection.execute(
-        'SELECT id, username FROM users WHERE id = ?',
+        'SELECT * FROM users WHERE id = ?',
         (user_id,)
     ).fetchone()
     connection.close()
@@ -33,6 +33,20 @@ def create_user(username, hashed_password):
         connection.execute(
             'INSERT INTO users (username, password) VALUES (?, ?)',
             (username, hashed_password)
+        )
+        connection.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    finally:
+        connection.close()
+
+def update_username(user_id, new_username):
+    connection = get_db_connection()
+    try:
+        connection.execute(
+            'UPDATE users SET username = ? WHERE id = ?',
+            (new_username, user_id)
         )
         connection.commit()
         return True
