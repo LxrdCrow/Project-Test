@@ -1,4 +1,4 @@
-# Flask Authentication Project
+# Flask Test Project
 
 A simple Flask web application developed as a technical test.
 
